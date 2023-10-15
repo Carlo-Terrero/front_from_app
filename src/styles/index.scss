@@ -1,5 +1,15 @@
+// General
 @import "./variables.scss";
 @import "./general.scss";
-@import "./login.scss";
 @import "./btn.scss";
-@import "./navigation.scss";
+
+// Login
+@import "../component/pages/login/login.scss";
+
+// Navigation
+@import "../component/navigation/navigation.scss";
+
+// Dashboard
+@import "../component/pages/dashboard/dashboard.scss";
+@import "../component/pages/dashboard/tableDashboard/tableDashboard.scss";
+@import "../component/pages/dashboard/tableDashboard/handleButtons/handleButtons.scss";

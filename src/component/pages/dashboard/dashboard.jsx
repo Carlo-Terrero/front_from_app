@@ -3,7 +3,7 @@ import axios from "axios";
 
 import TableDashboard from "./tableDashboard/tableDashboard";
 
-export default function Dashboard(){
+export default function Dashboard({data}){
 
     const [surveys, setSurveys] = useState();
 
@@ -12,22 +12,20 @@ export default function Dashboard(){
              .then(response => setSurveys(response.data))
     },[]);
 
+    console.log(data)
     return(
         <section className="container_dasboard">
             <h1>Dashboard</h1>
 
             <p>Gestione aquí una lista de posibles clientes</p>
 
-            <TableDashboard surveys={surveys}/>
+            <TableDashboard surveys={surveys} category={data.user_type}/>
         </section>
     )
 }
 
-// id: 4,
-// dni: '25798641D',
-// product: 'Gas',
-// by_product: 'Tarifa Total',
-// maintenance: 'No',
-// state: 'Vendido',
-// create_survey: '2023-10-13',
-// last_change:
+
+// user_name: 'Lucía Incapie',
+//     user_mail: 'lucia@gmail.com',
+//     user_pass: 'user',
+//     user_type:
