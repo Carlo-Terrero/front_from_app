@@ -7,8 +7,8 @@ export default function LoginForm({login}){
     // const uu = useStoreLogIn((state) => state.getState());
 
     const [loginDate, setLoginDate] = useState({
-        user_mail: "lucia@gmail.com",
-        user_pass: "user"
+        user_mail: "maria@gmail.com",
+        user_pass: "admin"
     });
 
     const [typePass, setTypePass] = useState("password");
@@ -23,7 +23,6 @@ export default function LoginForm({login}){
 
     function onSubmit(){
         event.preventDefault();
-        console.log(loginDate);
 
         axios.post("http://localhost:8000/api/user/login", loginDate)
              .then(response => {

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
+import AddIcon from '@mui/icons-material/Add';
+
 import TableDashboard from "./tableDashboard/tableDashboard";
 import FormManager from "./formsManager/formsManager";
 
@@ -24,7 +26,13 @@ export default function Dashboard({data}){
             { 
                 viewForm ?
                     <FormManager close={setViewForm}/> : 
-                    <button onClick={()=>setViewForm(true)} >ver</button>
+                    <div 
+                        className="dashboard_add"
+                        onClick={()=>setViewForm(true)}
+                    >
+                        Añadir cliente
+                        <AddIcon />
+                    </div>
             }
 
             <TableDashboard surveys={surveys} category={data.user_type}/>

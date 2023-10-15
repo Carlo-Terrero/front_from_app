@@ -3,4 +3,11 @@
     .dashboard_introduccion{
         color: $light_grey;
     }
+
+    .dashboard_add{
+        display: flex;
+        align-items: center;
+        margin: 2rem 0;
+        cursor: pointer;
+    }
 }
