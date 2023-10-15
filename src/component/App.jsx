@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Login from './pages/login/login';
-import ProtectedRoutes from './navigation/ProtectedRoutes';
+import ProtectedRoutes from './navigation/protectedRoutes/ProtectedRoutes';
 
 function App() {
 

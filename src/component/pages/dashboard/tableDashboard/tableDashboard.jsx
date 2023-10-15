@@ -7,11 +7,11 @@ export default function TableDashboard({ surveys, category }){
         <table className="contaient_table">
             <tr>
                 <th>DNI Cliente</th>
-                <th>Produsto</th>
+                <th>Producto</th>
                 <th>Sub Producto</th>
                 <th>Mantenimiento</th>
                 <th>Estado</th>
-                <th>Creodo</th>
+                <th>Creado</th>
                 <th>Ultimo cambio</th>
                 {category == "admin" ? <th>Gestionar cliente</th> : false}
             </tr>
