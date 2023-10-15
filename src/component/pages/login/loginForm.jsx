@@ -1,10 +1,14 @@
+import axios from "axios";
 import React, {useState} from "react";
+import useStoreLogIn from "../../hooks/useStore/useStore";
 
-export default function LoginForm(){
+export default function LoginForm({login}){
+
+    // const uu = useStoreLogIn((state) => state.getState());
 
     const [loginDate, setLoginDate] = useState({
-        user_mail: "",
-        user_pass: ""
+        user_mail: "lucia@gmail.com",
+        user_pass: "user"
     });
 
     const [typePass, setTypePass] = useState("password");
@@ -20,6 +24,14 @@ export default function LoginForm(){
     function onSubmit(){
         event.preventDefault();
         console.log(loginDate);
+
+        axios.post("http://localhost:8000/api/user/login", loginDate)
+             .then(response => {
+                console.log(response.data.length)
+                response.data.length ?
+                    login(response.data[0]) :
+                    console.log('No hay');
+             });
     }
 
     function handelTypePass(){
