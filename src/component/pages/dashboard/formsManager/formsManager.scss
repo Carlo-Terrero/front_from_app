@@ -32,3 +32,19 @@
     }
 }
 
+.container_mantenimiento{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.text_implement{
+    padding: 0;
+    margin: 0;
+}
+
+.double_container{
+    display: flex;
+    flex-direction: column;
+    gap: 16px
+}
