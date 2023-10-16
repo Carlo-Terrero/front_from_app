@@ -14,7 +14,8 @@
 
 ## Login
 
-#### En la base de datos actual hay dos usuarios. La contraseña de cada usuario da una pista de la categoría del usuario.
+#### Para el login es necesario un correo y contraseña.
+<!-- #### En la base de datos actual hay dos usuarios. La contraseña de cada usuario da una pista de la categoría del usuario.
 
 - mail -> maria@gmail.com
 - password -> admin
@@ -22,8 +23,15 @@
 - mail -> lucia@gmail.com
 - password -> user
 
-son usuarios de prueba.
+son usuarios de prueba. -->
 
 #### Adjunto url para que puedas interactuar con el backend
 
 - https://github.com/Carlo-Terrero/api_form
+
+## Herramientas utilizadas
+- React-form: Está implementada en el formulatio de login, ya que fue la primera toma de contacto que con esta herramienta.
+- Zustand: Se utiliza para gestionar el estado y/o login de la aplicación.
+- Mui-Component: Para los iconos.
+- Scss: Preprocesador de estilos css.
+- React-Router-Dom: Para las rutas de la aplicación
