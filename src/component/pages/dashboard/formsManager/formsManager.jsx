@@ -6,8 +6,6 @@ export default function FormManager({close}){
     const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
     const productoGas = ["PLANA", "TOTAL"];
 
-    const dniValidator = new RegExp();
-
     const [clientData, setClientData] = useState({
         dni: "",
         product: "",
@@ -181,6 +179,7 @@ export default function FormManager({close}){
                         name="dni" 
                         id="number_dni"
                         value={clientData.dni}
+                        pattern="[0-9]{8}[a-zA-Z]{1}"
                         onChange={(e) => handlechange(e)}
                         required
                     />
