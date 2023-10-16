@@ -3,10 +3,10 @@ import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-export default function HandleButtons({elementData}){
+export default function HandleButtons({elementData, setSurveyEdit}){
 
     function HandleEdit(element){
-        console.log(" Edit element ", element);
+        setSurveyEdit(element)
     }
 
     function HandleDelte(element){

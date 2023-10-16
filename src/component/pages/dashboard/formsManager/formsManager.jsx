@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
-export default function FormManager({close}){
+export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
     const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
     const productoGas = ["PLANA", "TOTAL"];
@@ -23,7 +23,9 @@ export default function FormManager({close}){
 
     useEffect(() =>{
         setClientData(clientDataFix)
-    },[])
+        
+        if(surveyEdit) setClientData(surveyEdit)
+    },[surveyEdit])
 
     function handlechange(e){
 
@@ -36,13 +38,10 @@ export default function FormManager({close}){
     function handleDate(){
         const fecha = new Date();
         const año = fecha.getFullYear();
-        const mes = fecha.getMonth() + 1; // Sumamos 1 porque los meses se cuentan desde 0.
+        const mes = fecha.getMonth() + 1;
         const día = fecha.getDate();
-        
-        // Formatear la fecha en el formato deseado
         const fechaFormateada = `${año}-${mes < 10 ? '0' : ''}${mes}-${día < 10 ? '0' : ''}${día}`;
         return fechaFormateada;
-        
     }
 
     function onSubmit(data){
@@ -59,21 +58,36 @@ export default function FormManager({close}){
             console.log("debe seleccionar un matenimiento");
         }
 
-        console.log(clientData)
+        !surveyEdit ?
+            axios.post("http://localhost:8000/api/survey", clientData)
+                .then(response => {
+                    console.log("agregado")
+                    console.log(response)
+                })
+                .catch((err) =>{
+                    console.log("ha aparecido un error")
+                    console.log(err)
 
-        axios.post("http://localhost:8000/api/survey", clientData)
-            .then(response => {
-                console.log("agregado")
-                console.log(response)
-            })
-            .catch((err) =>{
-                console.log("ha aparecido un error")
-                console.log(err)
+                })
+                .finally(() =>{
+                    setSurveyEdit()
+                    close(false)
+                })
+            :
+            axios.put(`http://localhost:8000/api/survey/${clientData.id}`, clientData)
+                .then(response => {
+                    console.log("agregado")
+                    console.log(response)
+                })
+                .catch((err) =>{
+                    console.log("ha aparecido un error")
+                    console.log(err)
 
-            })
-            .finally(
-                close(false)
-            )
+                })
+                .finally(() =>{
+                    setSurveyEdit()
+                    close(false)
+                })
 
     }
 
@@ -197,6 +211,11 @@ export default function FormManager({close}){
         )
     }
 
+    function handleClose(){
+        close()
+        setSurveyEdit()
+    }
+
     return(
         <div className="container_formManager">
 
@@ -273,16 +292,25 @@ export default function FormManager({close}){
                     </select>
                 </div>
 
-                <div>
-                    <input 
-                        type="submit" 
-                        value="Agragar Cliente"
-                        className="btn_log"
-                    />
-                </div>
+                {!surveyEdit ? 
+                    <div>
+                        <input 
+                            type="submit" 
+                            value="Agragar Cliente"
+                            className="btn_log"
+                        />
+                    </div> :
+                    <div>
+                        <input 
+                            type="submit" 
+                            value="Editar Cliente"
+                            className="btn_log"
+                        />
+                    </div>
+                }
             </form>
 
-            <CloseIcon className="icon_close" onClick={()=> close(false)}/>
+            <CloseIcon className="icon_close" onClick={()=> handleClose()}/>
 
         </div>
     )

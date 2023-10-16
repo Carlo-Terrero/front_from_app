@@ -1,7 +1,7 @@
 import React from "react";
 
 import HandleButtons from "./handleButtons/handleButtons";
-export default function TableDashboard({ surveys, category }){
+export default function TableDashboard({ surveys, category, setSurveyEdit }){
 
     return(
         <table className="contaient_table">
@@ -29,7 +29,7 @@ export default function TableDashboard({ surveys, category }){
                     <td>{survey.state}</td>
                     <td>{survey.create_survey}</td>
                     <td>{survey.last_change}</td>
-                    {category == "admin" ? <td><HandleButtons elementData={survey}/> </td>: false}
+                    {category == "admin" ? <td><HandleButtons elementData={survey} setSurveyEdit={setSurveyEdit} /> </td>: false}
                 </tr>
             ))}
 

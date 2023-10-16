@@ -10,6 +10,7 @@ export default function Dashboard({data}){
 
     const [surveys, setSurveys] = useState();
     const [viewForm, setViewForm] = useState(false);
+    const [surveyEdit, setSurveyEdit] = useState();
 
     useEffect(()=>{
         axios.get('http://localhost:8000/api/surveys')
@@ -23,8 +24,8 @@ export default function Dashboard({data}){
             <p className="dashboard_introduccion">Gestione aquí una lista de posibles clientes</p>
 
             { 
-                viewForm ?
-                    <FormManager close={setViewForm}/> : 
+                viewForm || surveyEdit?
+                    <FormManager surveyEdit={surveyEdit} close={setViewForm} setSurveyEdit={setSurveyEdit}/> : 
                     <div 
                         className="dashboard_add"
                         onClick={()=>setViewForm(true)}
@@ -34,7 +35,12 @@ export default function Dashboard({data}){
                     </div>
             }
 
-            <TableDashboard surveys={surveys} category={data.user_type}/>
+            <TableDashboard 
+                setSurveyEdit={setSurveyEdit} 
+                surveys={surveys} 
+                category={data.user_type}
+            />
+
         </section>
     )
 }
