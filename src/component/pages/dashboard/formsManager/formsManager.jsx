@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
+import { useStoreSurvey } from "../../../hooks/store/useStoreSurvey/useStoreSurvey";
 
 export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
@@ -21,6 +22,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
     const [clientData, setClientData] = useState(clientDataFix);
     const [viewMaintenance, setViewMaintenance] = useState(false);
+    const { getSurveys } = useStoreSurvey();
 
     useEffect(() =>{
         setClientData(clientDataFix)
@@ -62,32 +64,30 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
         !surveyEdit ?
             axios.post("http://localhost:8000/api/survey", clientData)
                 .then(response => {
-                    console.log("agregado")
-                    console.log(response)
+                    alert("Agregado correctamente")
                 })
                 .catch((err) =>{
-                    console.log("ha aparecido un error")
-                    console.log(err)
-
+                    alert("Ha aparecido un error al crear cliente")
+                    console.log(err);
                 })
                 .finally(() =>{
-                    setSurveyEdit()
-                    close(false)
+                    setSurveyEdit();
+                    close(false);
+                    getSurveys();
                 })
             :
             axios.put(`http://localhost:8000/api/survey/${clientData.id}`, clientData)
                 .then(response => {
-                    console.log("agregado")
-                    console.log(response)
+                    alert("Editado correctamente")
                 })
                 .catch((err) =>{
-                    console.log("ha aparecido un error")
-                    console.log(err)
-
+                    alert("Ha aparecido un error al editar cliente")
+                    console.log(err);
                 })
                 .finally(() =>{
-                    setSurveyEdit()
-                    close(false)
+                    setSurveyEdit();
+                    close(false);
+                    getSurveys();
                 })
 
     }
