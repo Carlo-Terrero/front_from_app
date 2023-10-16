@@ -16,7 +16,6 @@ export default function Dashboard({data}){
              .then(response => setSurveys(response.data))
     },[]);
 
-    
     return(
         <section className="container_dashboard">
             <h1>Dashboard</h1>
@@ -39,9 +38,3 @@ export default function Dashboard({data}){
         </section>
     )
 }
-
-// id
-// user_name: 'Lucía Incapie',
-//     user_mail: 'lucia@gmail.com',
-//     user_pass: 'user',
-//     user_type:

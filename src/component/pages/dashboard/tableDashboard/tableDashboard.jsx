@@ -10,6 +10,8 @@ export default function TableDashboard({ surveys, category }){
                 <th>Producto</th>
                 <th>Sub Producto</th>
                 <th>Mantenimiento</th>
+                <th>Sub Producto dos</th>
+                <th>Mantenimiento dos</th>
                 <th>Estado</th>
                 <th>Creado</th>
                 <th>Ultimo cambio</th>
@@ -22,6 +24,8 @@ export default function TableDashboard({ surveys, category }){
                     <td>{survey.product}</td>
                     <td>{survey.by_product}</td>
                     <td>{survey.maintenance}</td>
+                    <td>{survey.by_product_two ?? "-" }</td>
+                    <td>{survey.maintenance_two ?? "-" }</td>
                     <td>{survey.state}</td>
                     <td>{survey.create_survey}</td>
                     <td>{survey.last_change}</td>
