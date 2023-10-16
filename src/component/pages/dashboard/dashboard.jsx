@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 
 import AddIcon from '@mui/icons-material/Add';
 
 import TableDashboard from "./tableDashboard/tableDashboard";
 import FormManager from "./formsManager/formsManager";
+import { useStoreUser } from "../../hooks/store/useStoreUser/useStoreUser";
+import { useStoreSurvey } from "../../hooks/store/useStoreSurvey/useStoreSurvey";
 
-export default function Dashboard({data}){
+export default function Dashboard(){
 
-    const [surveys, setSurveys] = useState();
     const [viewForm, setViewForm] = useState(false);
     const [surveyEdit, setSurveyEdit] = useState();
 
+    const userLoged = useStoreUser(state => state.loggedIn)
+    const {getSurveys, surveyList} = useStoreSurvey()
+
     useEffect(()=>{
-        axios.get('http://localhost:8000/api/surveys')
-             .then(response => setSurveys(response.data))
+        getSurveys()
     },[]);
 
     return(
@@ -37,8 +39,8 @@ export default function Dashboard({data}){
 
             <TableDashboard 
                 setSurveyEdit={setSurveyEdit} 
-                surveys={surveys} 
-                category={data.user_type}
+                surveys={surveyList} 
+                category={userLoged.user_type}
             />
 
         </section>

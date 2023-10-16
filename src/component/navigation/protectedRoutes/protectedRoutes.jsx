@@ -4,15 +4,14 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "../../pages/dashboard/dashboard";
 import Navigation from "../navigation";
 
-export default function ProtectedRoutes({data, handleLogin}){
+export default function ProtectedRoutes(){
 
-    console.log(data)
     return(
         <>
-            <Navigation data={data} logOut={handleLogin}/>
+            <Navigation/>
 
             <Routes>
-                <Route exac path="/" element={<Dashboard data={data}/>}/>
+                <Route exac path="/" element={<Dashboard/>}/>
             </Routes>
         </>
     )

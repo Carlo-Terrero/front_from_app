@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
+import { useStoreSurvey } from "../../../hooks/store/useStoreSurvey/useStoreSurvey";
+import { useAxios } from "../../../hooks/useAxios/useAxios";
+
 export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
-    const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
-    const productoGas = ["PLANA", "TOTAL"];
+    const productoLuz = ["Tarifa plana", "Tarifa por uso"];
+    const productoGas = ["Plana", "Total"];
     const clientDataFix = {
         dni: "",
         product: "",
@@ -20,6 +22,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
     const [clientData, setClientData] = useState(clientDataFix);
     const [viewMaintenance, setViewMaintenance] = useState(false);
+    const { getSurveys } = useStoreSurvey();
 
     useEffect(() =>{
         setClientData(clientDataFix)
@@ -44,49 +47,47 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
         return fechaFormateada;
     }
 
-    function onSubmit(data){
+    function onSubmit(){
         event.preventDefault();
         clientData.create_survey = handleDate();
         clientData.last_change = handleDate();
 
         if(clientData.state.length == 0 || clientData.product.length == 0){
-            console.log("puebe otra vez")
+            alert("puebe otra vez")
             return
         }
 
         if(clientData.maintenance == null && viewMaintenance){
-            console.log("debe seleccionar un matenimiento");
+            alert("debe seleccionar un matenimiento");
         }
 
         !surveyEdit ?
-            axios.post("http://localhost:8000/api/survey", clientData)
+            useAxios.post("/survey", clientData)
                 .then(response => {
-                    console.log("agregado")
-                    console.log(response)
+                    alert("Agregado correctamente")
                 })
                 .catch((err) =>{
-                    console.log("ha aparecido un error")
-                    console.log(err)
-
+                    alert("Ha aparecido un error al crear cliente")
+                    console.log(err);
                 })
                 .finally(() =>{
-                    setSurveyEdit()
-                    close(false)
+                    setSurveyEdit();
+                    close(false);
+                    getSurveys();
                 })
             :
-            axios.put(`http://localhost:8000/api/survey/${clientData.id}`, clientData)
+            useAxios.put(`/survey/${clientData.id}`, clientData)
                 .then(response => {
-                    console.log("agregado")
-                    console.log(response)
+                    alert("Editado correctamente")
                 })
                 .catch((err) =>{
-                    console.log("ha aparecido un error")
-                    console.log(err)
-
+                    alert("Ha aparecido un error al editar cliente")
+                    console.log(err);
                 })
                 .finally(() =>{
-                    setSurveyEdit()
-                    close(false)
+                    setSurveyEdit();
+                    close(false);
+                    getSurveys();
                 })
 
     }
@@ -98,10 +99,11 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
+                    value={clientData.by_product}
                 >
                     <option disabled selected>Seleccione producto</option>
                     {productoGas.map(element =>(
-                        <option value={element}>{element}</option>
+                        <option key={element} value={element}>{element}</option>
                     ))}
                     
                 </select>
@@ -116,6 +118,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
+                    value={clientData.by_product}
                 >
                     <option disabled selected>Seleccione producto</option>
                     {productoLuz.map(element =>(
@@ -136,6 +139,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="by_product"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.by_product}
                     >
                         {productoLuz.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -149,6 +153,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="by_product_two"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.by_product_two}
                     >
                         {productoGas.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -173,6 +178,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance}
                         required
                         >
                         <option selected disabled>Seleccionar {clientData?.product}</option>
@@ -187,6 +193,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance}
                         required
                         >
                         <option selected disabled>{Dual[0]}</option>
@@ -200,6 +207,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance_two"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance_two}
                         required
                         >
                         <option selected disabled>{Dual[1]}</option>
@@ -239,6 +247,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="product"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.product}
                         required
                     >
                         <option disabled selected >Selecciona producto</option>
@@ -281,6 +290,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="state"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.state}
                         required={true}
                     >
                         <option disabled selected >Selecciona estado</option>
