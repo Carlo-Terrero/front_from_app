@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
-import useStoreLogIn from "../../hooks/useStore/useStore";
+import {useStoreLogIn} from "../../hooks/useStore/useStore";
 
-export default function LoginForm({login}){
+export default function LoginForm(){
 
-    // const uu = useStoreLogIn((state) => state.getState());
+    const login = useStoreLogIn((state) => state.logIn);
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: {
             user_mail: "maria@gmail.com",
@@ -19,10 +19,13 @@ export default function LoginForm({login}){
 
         axios.post("http://localhost:8000/api/user/login", loginDate)
              .then(response => {
-                console.log(response.data.length)
                 response.data.length ?
-                    login(response.data[0]) :
-                    console.log('No hay');
+                    (
+                        login(response.data[0]),
+                        localStorage.setItem('userForm', JSON.stringify(response.data[0]))
+                    )
+                    :
+                    alert("Usuario o contraseña incorrecto")
              });
     }
 

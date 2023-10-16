@@ -3,7 +3,7 @@ import React from "react";
 import LoginForm from "./loginForm";
 import imgLogIn from "../../../assets/img/login.avif"
 
-export default function Login({handleLogin}){
+export default function Login(){
 
     return(
         <div className="container_login">
@@ -12,7 +12,7 @@ export default function Login({handleLogin}){
             </div>
 
             <div className="container_colimn_right">
-                <LoginForm login={handleLogin}/>
+                <LoginForm/>
             </div>
 
         </div>

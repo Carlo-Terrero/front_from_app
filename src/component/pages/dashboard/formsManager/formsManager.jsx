@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
+
 export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
     const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
@@ -101,7 +102,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                 >
                     <option disabled selected>Seleccione producto</option>
                     {productoGas.map(element =>(
-                        <option value={element}>{element}</option>
+                        <option key={element} value={element}>{element}</option>
                     ))}
                     
                 </select>

@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import { useStoreLogIn } from './hooks/useStore/useStore';
 import Login from './pages/login/login';
 import ProtectedRoutes from './navigation/protectedRoutes/ProtectedRoutes';
 
 function App() {
 
-  const [userLogin, setUserLogin] = useState();
+  const userLoged = useStoreLogIn(state => state.loggedIn)
 
   return (
-    userLogin ? 
-      <ProtectedRoutes data={userLogin} handleLogin={setUserLogin} /> : 
+    userLoged ? 
+      <ProtectedRoutes/> : 
       <Routes>
-        <Route path="/" element={<Login handleLogin={setUserLogin}/>}/>
+        <Route path="/" element={<Login/>}/>
       </Routes>
   )
 }
