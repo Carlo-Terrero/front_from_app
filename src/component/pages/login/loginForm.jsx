@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
-import {useStoreLogIn} from "../../hooks/useStore/useStore";
+import { useStoreUser } from "../../hooks/store/useStoreUser/useStoreUser";
 
 export default function LoginForm(){
 
-    const login = useStoreLogIn((state) => state.logIn);
+    const login = useStoreUser((state) => state.logIn);
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: {
             user_mail: "maria@gmail.com",

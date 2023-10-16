@@ -1,11 +1,12 @@
 import React from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useStoreLogIn } from "../hooks/useStore/useStore";
+// import { useStoreLogIn } from "../hooks/useStore/useStore";
+import { useStoreUser } from "../hooks/store/useStoreUser/useStoreUser";
 
 export default function Navigation(){
 
-    const logOut = useStoreLogIn(state => state.logOut);
-    const userLogin = useStoreLogIn(state => state.loggedIn);
+    const logOut = useStoreUser(state => state.logOut);
+    const userLogin = useStoreUser(state => state.loggedIn);
 
     function out(){
         localStorage.removeItem("userForm")
