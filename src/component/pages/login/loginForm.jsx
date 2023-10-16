@@ -46,7 +46,6 @@ export default function LoginForm({login}){
                     <input
                         type="email"
                         {...register("user_mail", {required: true})}
-                        // aria-invalid={errors.user_mail ? "true" : "false"} 
                     />
                     {errors.user_mail?.type === 'required' && <p className="text_error" role="alert">Introducir email</p>}
                 </div>

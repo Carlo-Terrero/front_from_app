@@ -1,24 +1,29 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
 export default function FormManager({close}){
 
     const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
     const productoGas = ["PLANA", "TOTAL"];
-
-    const [clientData, setClientData] = useState({
+    const clientDataFix = {
         dni: "",
         product: "",
-        by_product: "",
-        by_product_two: "",
-        maintenance: "",
-        maintenance_two: "",
+        by_product: null,
+        by_product_two: null,
+        maintenance: null,
+        maintenance_two: null,
         state: "",
         create_survey: "",
         last_change: "",
-    });
+    }
 
+    const [clientData, setClientData] = useState(clientDataFix);
     const [viewMaintenance, setViewMaintenance] = useState(false);
+
+    useEffect(() =>{
+        setClientData(clientDataFix)
+    },[])
 
     function handlechange(e){
 
@@ -28,22 +33,48 @@ export default function FormManager({close}){
         });
     }
 
-    function onSubmit(){
+    function handleDate(){
+        const fecha = new Date();
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1; // Sumamos 1 porque los meses se cuentan desde 0.
+        const día = fecha.getDate();
+        
+        // Formatear la fecha en el formato deseado
+        const fechaFormateada = `${año}-${mes < 10 ? '0' : ''}${mes}-${día < 10 ? '0' : ''}${día}`;
+        return fechaFormateada;
+        
+    }
+
+    function onSubmit(data){
         event.preventDefault();
-        clientData.create_survey = new Date().toLocaleDateString();
-        clientData.last_change = new Date().toLocaleDateString();
+        clientData.create_survey = handleDate();
+        clientData.last_change = handleDate();
 
         if(clientData.state.length == 0 || clientData.product.length == 0){
             console.log("puebe otra vez")
             return
         }
 
-        if(clientData.maintenance.length == 0 && viewMaintenance){
+        if(clientData.maintenance == null && viewMaintenance){
             console.log("debe seleccionar un matenimiento");
         }
 
-        // se envia el formulario
-        console.log(clientData.state.length)
+        console.log(clientData)
+
+        axios.post("http://localhost:8000/api/survey", clientData)
+            .then(response => {
+                console.log("agregado")
+                console.log(response)
+            })
+            .catch((err) =>{
+                console.log("ha aparecido un error")
+                console.log(err)
+
+            })
+            .finally(
+                close(false)
+            )
+
     }
 
     function selectedGas(){
@@ -53,8 +84,8 @@ export default function FormManager({close}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
-                    required
                 >
+                    <option disabled selected>Seleccione producto</option>
                     {productoGas.map(element =>(
                         <option value={element}>{element}</option>
                     ))}
@@ -71,10 +102,10 @@ export default function FormManager({close}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
-                    required
                 >
+                    <option disabled selected>Seleccione producto</option>
                     {productoLuz.map(element =>(
-                        <option value={element}>{element}</option>
+                        <option key={element} value={element}>{element}</option>
                     ))}
                     
                 </select>
@@ -91,7 +122,6 @@ export default function FormManager({close}){
                     <select 
                         name="by_product"
                         onChange={(e) => handlechange(e)}
-                        required={true}
                     >
                         {productoLuz.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -105,7 +135,6 @@ export default function FormManager({close}){
                     <select 
                         name="by_product_two"
                         onChange={(e) => handlechange(e)}
-                        required={true}
                     >
                         {productoGas.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -193,6 +222,7 @@ export default function FormManager({close}){
                         onChange={(e) => handlechange(e)}
                         required
                     >
+                        <option disabled selected >Selecciona producto</option>
                         <option value="Luz">Luz</option>
                         <option value="Gas">Gas</option>
                         <option value="Dual">Dual</option>
@@ -207,7 +237,9 @@ export default function FormManager({close}){
                         clientData.product == "Luz" ?
                             selectedLuz()
                             :
-                            selectedDual()
+                            clientData.product == "Dual" ?
+                                selectedDual() :
+                                "Seleccione un producto"
                 }
 
                 {/* inicialmente no se muestra */}

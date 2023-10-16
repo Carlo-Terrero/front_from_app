@@ -22,8 +22,8 @@ export default function TableDashboard({ surveys, category }){
                 <tr key={survey.dni}>
                     <td>{survey.dni}</td>
                     <td>{survey.product}</td>
-                    <td>{survey.by_product}</td>
-                    <td>{survey.maintenance}</td>
+                    <td>{survey.by_product ?? "-"}</td>
+                    <td>{survey.maintenance ?? "-"}</td>
                     <td>{survey.by_product_two ?? "-" }</td>
                     <td>{survey.maintenance_two ?? "-" }</td>
                     <td>{survey.state}</td>
