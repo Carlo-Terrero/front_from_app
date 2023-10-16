@@ -6,8 +6,8 @@ import { useAxios } from "../../../hooks/useAxios/useAxios";
 
 export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
-    const productoLuz = ["TARIFA PLANA", "TARIFA POR USO"];
-    const productoGas = ["PLANA", "TOTAL"];
+    const productoLuz = ["Tarifa plana", "Tarifa por uso"];
+    const productoGas = ["Plana", "Total"];
     const clientDataFix = {
         dni: "",
         product: "",
@@ -47,18 +47,18 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
         return fechaFormateada;
     }
 
-    function onSubmit(data){
+    function onSubmit(){
         event.preventDefault();
         clientData.create_survey = handleDate();
         clientData.last_change = handleDate();
 
         if(clientData.state.length == 0 || clientData.product.length == 0){
-            console.log("puebe otra vez")
+            alert("puebe otra vez")
             return
         }
 
         if(clientData.maintenance == null && viewMaintenance){
-            console.log("debe seleccionar un matenimiento");
+            alert("debe seleccionar un matenimiento");
         }
 
         !surveyEdit ?
@@ -99,6 +99,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
+                    value={clientData.by_product}
                 >
                     <option disabled selected>Seleccione producto</option>
                     {productoGas.map(element =>(
@@ -117,6 +118,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                 <select 
                     name="by_product"
                     onChange={(e) => handlechange(e)}
+                    value={clientData.by_product}
                 >
                     <option disabled selected>Seleccione producto</option>
                     {productoLuz.map(element =>(
@@ -137,6 +139,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="by_product"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.by_product}
                     >
                         {productoLuz.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -150,6 +153,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="by_product_two"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.by_product_two}
                     >
                         {productoGas.map(element =>(
                             <option key={element} value={element}>{element}</option>
@@ -174,6 +178,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance}
                         required
                         >
                         <option selected disabled>Seleccionar {clientData?.product}</option>
@@ -188,6 +193,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance}
                         required
                         >
                         <option selected disabled>{Dual[0]}</option>
@@ -201,6 +207,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="maintenance_two"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.maintenance_two}
                         required
                         >
                         <option selected disabled>{Dual[1]}</option>
@@ -240,6 +247,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="product"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.product}
                         required
                     >
                         <option disabled selected >Selecciona producto</option>
@@ -282,6 +290,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     <select 
                         name="state"
                         onChange={(e) => handlechange(e)}
+                        value={clientData.state}
                         required={true}
                     >
                         <option disabled selected >Selecciona estado</option>
