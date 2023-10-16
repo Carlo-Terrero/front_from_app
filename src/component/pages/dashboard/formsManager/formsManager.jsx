@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 
 import CloseIcon from '@mui/icons-material/Close';
 import { useStoreSurvey } from "../../../hooks/store/useStoreSurvey/useStoreSurvey";
+import { useAxios } from "../../../hooks/useAxios/useAxios";
 
 export default function FormManager({close, surveyEdit ,setSurveyEdit}){
 
@@ -62,7 +62,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
         }
 
         !surveyEdit ?
-            axios.post("http://localhost:8000/api/survey", clientData)
+            useAxios.post("/survey", clientData)
                 .then(response => {
                     alert("Agregado correctamente")
                 })
@@ -76,7 +76,7 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     getSurveys();
                 })
             :
-            axios.put(`http://localhost:8000/api/survey/${clientData.id}`, clientData)
+            useAxios.put(`/survey/${clientData.id}`, clientData)
                 .then(response => {
                     alert("Editado correctamente")
                 })

@@ -1,24 +1,25 @@
 import { create } from "zustand";
-import axios from "axios";
+
+import { useAxios } from "../../useAxios/useAxios";
 
 export const useStoreSurvey = create((set) => ({
     surveyList: [],
     getSurveys: async () => {
-        const surveyList = await axios.get(
-            "http://localhost:8000/api/surveys"
+        const surveyList = await useAxios.get(
+            "/surveys"
         ).then(resp => resp.data);
         
-        console.log('dentro')
         set(state => ({
             ...state,
             surveyList
         }))
     },
     deleteSurveys: async(element) => {
-        const respuesta = await axios.delete(
-            `http://localhost:8000/api/survey/${element.id}`
+        await useAxios.delete(
+            `/survey/${element.id}`
         ).then(resp => 
             {
+                alert("Cliente Eliminado")
                 return resp
             }
         ).catch((error) =>{
@@ -26,8 +27,8 @@ export const useStoreSurvey = create((set) => ({
         });
     },
     postSurveys: async(element) => {
-        const respuesta = await axios.post(
-            `http://localhost:8000/api/survey`, element
+        const respuesta = await useAxios.post(
+            `/survey`, element
         ).then(resp => 
             {
                 return resp
@@ -37,8 +38,8 @@ export const useStoreSurvey = create((set) => ({
         });
     },
     putSurveys: async(element) => {
-        const respuesta = await axios.put(
-            `http://localhost:8000/api/survey${element.id}`, element
+        const respuesta = await useAxios.put(
+            `/api/survey${element.id}`, element
         ).then(resp => 
             {
                 return resp

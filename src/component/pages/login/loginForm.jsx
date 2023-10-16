@@ -1,4 +1,4 @@
-import axios from "axios";
+import { useAxios } from "../../hooks/useAxios/useAxios";
 import React, {useState} from "react";
 import { useForm } from "react-hook-form";
 import { useStoreUser } from "../../hooks/store/useStoreUser/useStoreUser";
@@ -17,8 +17,8 @@ export default function LoginForm(){
 
     function onSubmit(loginDate){
 
-        axios.post("http://localhost:8000/api/user/login", loginDate)
-             .then(response => {
+        useAxios.post("/user/login", loginDate)
+            .then(response => {
                 response.data.length ?
                     (
                         login(response.data[0]),
@@ -26,7 +26,7 @@ export default function LoginForm(){
                     )
                     :
                     alert("Usuario o contraseña incorrecto")
-             });
+            });
     }
 
     function handelTypePass(){
