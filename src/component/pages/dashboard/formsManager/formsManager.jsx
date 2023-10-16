@@ -257,8 +257,6 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                     </select>
                 </div>
 
-                {/* La Dual mostrara dos sub productos  */}
-
                 {clientData.product == "Gas" ? 
                         selectedGas()
                     :
@@ -270,7 +268,6 @@ export default function FormManager({close, surveyEdit ,setSurveyEdit}){
                                 "Seleccione un producto"
                 }
 
-                {/* inicialmente no se muestra */}
                 <div className="formManager_element">
 
                     {
