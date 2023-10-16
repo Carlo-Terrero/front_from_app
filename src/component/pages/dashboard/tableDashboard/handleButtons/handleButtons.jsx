@@ -13,7 +13,7 @@ export default function HandleButtons({elementData, setSurveyEdit}){
 
     async function  HandleDelte(element){
         const respose = await deleteSurveys(element);
-        respose.data ? getSurveys() : alert('Ha ocurrido un error')
+        respose == undefined ? getSurveys() : alert('Ha ocurrido un error')
     }
 
     return(
