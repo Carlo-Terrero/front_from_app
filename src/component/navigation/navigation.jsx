@@ -1,6 +1,5 @@
 import React from "react";
 import LogoutIcon from '@mui/icons-material/Logout';
-// import { useStoreLogIn } from "../hooks/useStore/useStore";
 import { useStoreUser } from "../hooks/store/useStoreUser/useStoreUser";
 
 export default function Navigation(){
